@@ -1,20 +1,18 @@
 import {http} from './config'
 export default{
-    salvar:(user) => {
-        return http.post('account/register-user', user)
+    salvar:() => {
+        return http.post('api/link')
     },
-    instructorCourse:() => {
-        return http.get('instructor/my-courses');
+    busca:() => {
+        return http.get('api/link/:codigo');
     },
-    mySales: () => {
-        return http.get('instructor/my-sales')
+    alterar: () => {
+        return http.get('api/link/:codigo')
     },
-    students: (courseId) => {
-        return http.get('instructor/list-students?courseId=' + courseId)
+    deletar: () => {
+        return http.get('api/link:/codigo')
     },
-    ConcludeCourse:(courseId) => {
-        return http.put('instructor/course-complete', courseId)
-    },
-
-    
+    buscaTodos:() => {
+        return http.put('api/links')
+    },   
 }

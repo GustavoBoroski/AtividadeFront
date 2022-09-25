@@ -17,11 +17,11 @@
                 class="pad-top font-600"
                 id="nsite"
                 label="Nome do site:"
-                label-for="Nsite"
+                label-for="nomeDoSite"
               >
                 <b-form-input
                   id="nsite"
-                  v-model="form.nsite"
+                  v-model="form.nomeDoSite"
                   type="text"
                   placeholder="Ex: TecMundo"
                 ></b-form-input>
@@ -34,11 +34,11 @@
                 class="pad-top font-600"
                 id="link"
                 label="Insira o link aqui:"
-                label-for="link"
+                label-for="linkDoSite"
               >
                 <b-form-input
                   id="link"
-                  v-model="form.link"
+                  v-model="form.linkDoSite"
                   type="link"
                   placeholder="Ex: https://www.tecmundo.com.br/software/248349-veja-4-principais-diferencas-entre-ios-16-ios-15.htm"
                 ></b-form-input>
@@ -51,11 +51,11 @@
                 class="pad-top font-600"
                 id="name"
                 label="Primeiro nome do autor:"
-                label-for="name"
+                label-for="primeiroNomeAutor"
               >
                 <b-form-input
                   id="name"
-                  v-model="form.name"
+                  v-model="form.primeiroNomeAutor"
                   placeholder="Ex: Cezar"
                 ></b-form-input>
               </b-form-group>
@@ -69,7 +69,7 @@
               >
                 <b-form-input
                   id="lname"
-                  v-model="form.lastName"
+                  v-model="form.segundoNomeAutor"
                   placeholder="Ex: Joukovski"
                 ></b-form-input>
               </b-form-group>
@@ -85,7 +85,7 @@
               >
                 <b-form-input
                   id="date"
-                  v-model="form.datePost"
+                  v-model="form.dataPublicacao"
                   type="date"
                   placeholder=""
                 ></b-form-input>
@@ -121,11 +121,11 @@ export default {
     return {
       errors: [],
         form:{
-        name: "",
-        lastName: "",
-        nsite: "",
-        link: "",
-        datePost: null,
+        primeiroNomeAutor: "",
+        segundoNomeAutor: "",
+        nomeDoSite: "",
+        linkDoSite: "",
+        dataPublicacao: null,
         },
         show: true,
         spinner: false,
@@ -141,11 +141,11 @@ export default {
     },
     onReset(event) {
       event.preventDefault();
-      this.form.name = "";
-      this.form.lastName = "";
-      this.form.nsite = "";
-      this.form.link = "";
-      this.form.datePost = "";
+      this.form.primeiroNomeAutor = "";
+      this.form.segundoNomeAutor = "";
+      this.form.nomeDoSite = "";
+      this.form.linkDoSite = "";
+      this.form.dataPublicacao = "";
       this.form.checked = [];
       this.show = false;
       this.$nextTick(() => {
@@ -155,21 +155,21 @@ export default {
     submitForm: function(e) {
       this.errors = [];
       
-      if (!this.form.name) {
+      if (!this.form.primeiroNomeAutor) {
         this.errors.push("O primeiro nome do autor é obrigatório.");
       }
       
-      if (!this.form.lastName) {
+      if (!this.form.segundoNomeAutor) {
         this.errors.push("O último nome do autor é obrigatório.");
       }
 
-      if (!this.form.nsite) {
+      if (!this.form.nomeDoSite) {
         this.errors.push('O nome do site é obrigatório.');
       }
 
-      if (!this.form.datePost) {
+      if (!this.form.dataPublicacao) {
         this.errors.push("A data de publicação é obrigatória.");
-      } else if (!this.validDate(this.form.datePost)) {
+      } else if (!this.validDate(this.form.dataPublicacao)) {
         this.errors.push("A data de publicação não é válida.");
       }
 
@@ -179,12 +179,12 @@ export default {
 
       e.preventDefault();
     },
-    validDate: function (datePost) {
+    validDate: function (dataPublicacao) {
       let today = new Date();
       today = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString();
       let parts = today.split('T')
       today = (parts[0]);
-      return datePost <= today ? true : false
+      return dataPublicacao <= today ? true : false
     },
     salvar(){
       let result = this.submitForm();
@@ -195,7 +195,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         User.salvar(this.form).then(apiResponse => {
         this.spinner = false;
-        this.$router.push({name:'login'})
+        this.$router.push({primeiroNomeAutor:'login'})
       })
       .catch(error => this.errors.push(error.response.data.Message));
       this.spinner = false;
